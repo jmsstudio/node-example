@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>Lista de Produtos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Remover</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% produtos.forEach(prod => { %>
+                    <tr>
+                        <td><%= prod.id %></td>
+                        <td><%= prod.titulo %></td>
+                        <td><%= prod.descricao %></td>
+                        <td><%= prod.preco %></td>
+                        <td>
+                            <form action="/produtos?_method=DELETE" method="POST">
+                                <input type="hidden" name="id" value="<%= prod.id %>"/>
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </body>
+</html>

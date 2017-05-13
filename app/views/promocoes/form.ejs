@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>Incluir Promoção</h2>
+
+        <form action="/promocao" method="POST">
+            <div>
+                <label for="mensagem">Mensagem</label>
+                <input type="text" id="mensagem" name="mensagem"/>
+            </div>
+            <div>
+                <label for="produto">Produto</label>
+                <select id="produto" name="livro[id]">
+                    <% for (let i=0; i < livros.length; i++) { %>
+                        <option value="<%= livros[i].id %>"><%= livros[i].titulo %></option>
+                    <% } %>
+                </select>
+            </div>
+            <button type="submit">Salvar</button>
+        </form>
+    </body>
+</html>
