@@ -9,6 +9,7 @@ module.exports = (app) => {
     app.get('/produtos', (req, res, next) => {
         const conn = app.infra.connectionFactory();
         const produtoRepository = new app.infra.ProdutoRepository(conn);
+
         produtoRepository.list((err, result) => {
             if (err) {
                 console.error(err);
@@ -20,8 +21,6 @@ module.exports = (app) => {
                 });
             }
         });
-
-        conn.end();
     });
 
     app.get('/produtos/form', (req, res) => {
@@ -48,8 +47,6 @@ module.exports = (app) => {
             produtoRepository.save(produto, (err, result) => {
                 res.redirect('/produtos');
             });
-
-            conn.end();
         }
     });
 
@@ -59,10 +56,9 @@ module.exports = (app) => {
         const conn = app.infra.connectionFactory();
         const produtoRepository = new app.infra.ProdutoRepository(conn);
         produtoRepository.delete(id, (err, result) => {
+            console.log('apagou')
             res.redirect('/produtos');
         });
-
-        conn.end();
 
     });
 };

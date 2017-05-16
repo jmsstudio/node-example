@@ -1,4 +1,6 @@
-const mysql = require('mysql');
+const pg = require('pg');
+
+//TODO http://mherman.org/blog/2015/02/12/postgresql-and-nodejs/
 
 function createConnection() {
     let databaseName = 'nodejs';
@@ -7,12 +9,10 @@ function createConnection() {
         databaseName = 'nodejs_test';
     }
 
-    return mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '12345',
-        database: databaseName
-    });
+    const connectionString = process.env.DATABASE_URL || `postgres://jefferson:12345@localhost:5432/${databaseName}`;
+
+    const client = new pg.Client(connectionString);
+    return client;
 };
 
 module.exports = () => {

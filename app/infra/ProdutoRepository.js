@@ -1,18 +1,37 @@
 class ProdutoRepository{
-    constructor(connection) {
-        this._conn = connection;
+    constructor(client) {
+        this._client = client;
     }
 
     list(callback) {
-        return this._conn.query('select * from produtos', callback);
+        this._client.connect();
+        this._client.query('select * from produtos')
+            .then(res => {
+                return res.rows;
+            })
+            .then((data) => {
+                callback(null, data);
+            })
+            .then(() => this._client.end());
     }
 
-    save(data, callback) {
-        return this._conn.query('insert into produtos set ?', data, callback);
+    save(dados, callback) {
+        this._client.connect();
+        this._client.query('insert into produtos (titulo, preco, descricao) values ($1, $2, $3)', 
+            [dados.titulo, dados.preco, dados.descricao])
+                .then((data) => {
+                    callback(null, data);
+                })
+                .then(() => this._client.end());
     }
 
     delete(id, callback) {
-        return this._conn.query('delete from produtos where id = ?', [id], callback);
+        this._client.connect();
+        this._client.query('delete from produtos where id = $1', [id])
+            .then((data) => {
+                callback(null, data);
+            })
+            .then(() => this._client.end());
     }
 
 

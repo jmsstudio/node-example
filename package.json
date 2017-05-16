@@ -15,7 +15,7 @@
     "express-load": "^1.1.15",
     "express-validator": "^3.2.0",
     "method-override": "^2.3.8",
-    "mysql": "^2.13.0",
+    "pg": "^6.1.5",
     "socket.io": "^2.0.1"
   },
   "devDependencies": {
