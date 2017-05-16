@@ -4,6 +4,11 @@ const io = require('socket.io')(http);
 
 app.set('io', io);
 
-http.listen(3000, () => {
-    console.log('Servidor em execução');
+const port = process.env.PORT || 3000;
+
+const server = http.listen(port, () => {
+    const host = server.address().address;
+    const port = server.address().port;
+
+    console.log('Servidor em execução em http://%s:%s', host, port);
 });
